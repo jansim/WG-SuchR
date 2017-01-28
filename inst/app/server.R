@@ -115,7 +115,7 @@ shinyServer(function(input, output){
       write.csv(dl_data(), file)
     }
   )
-  output$dl_table <- renderTable({
+  output$dl_table <- renderDataTable({
     dl_data()
   })
 })

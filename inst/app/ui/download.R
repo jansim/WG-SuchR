@@ -7,7 +7,7 @@ download <- tabItem(tabName = "download",
       downloadButton('dl_downloadButton', 'Download')
     ),
     box(title = "Datensatz ansehen", status = "success", width = 12,
-      tableOutput("dl_table")
+      dataTableOutput("dl_table")
     )
   )
 )
