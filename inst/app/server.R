@@ -30,10 +30,10 @@ shinyServer(function(input, output){
   output$ueb_hist_bewohner.bystadtteil <- renderPlot({
     hist.bewohner.by.stadtteil(wg()$Daten)
   })
-  output$ueb_pie <- renderpier({
+  output$ueb_pie <- renderPlot({
     pie.bewohner(wg()$Daten)
   })
-  output$ueb_pie_gesucht <- renderpier({
+  output$ueb_pie_gesucht <- renderPlot({
     pie.bewohner.ges(wg()$Daten)
   })
   #  ==== Meine Wohnung ====

@@ -64,43 +64,40 @@ hist.bewohner.by.stadtteil <- function(Daten, ordered = F) {
 
 
 # ==== Pie Charts / Tortendiagramme ====
-library(pier) # devtools::install_github("mrjoh3/pier")
-
-pie.bewohner <- function(Daten, header = 'Verteilung der Geschlechter in WGs') {
-  Verteilung.pier <- data.frame(
-    label = c("Männlich", "Weiblich"),
-    value = c(mean(Daten$m), mean(Daten$w)),
-    color = c("blue", "red")
+# Theme für ggplot pie charts
+pie_chart_theme <- theme_minimal() +
+  theme(
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    panel.border = element_blank(),
+    panel.grid=element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.x=element_blank()
   )
-  bewohner.pie <- pier(Verteilung.pier) %>% pie.header(header)
-  bewohner.pie
+
+pie.bewohner <- function(Daten) {
+  Verteilung <- data.frame(
+    gender = c("Männlich", "Weiblich"),
+    average = c(mean(Daten$m), mean(Daten$w))
+  )
+  colors <-  c("blue", "red")
+
+  ggplot(Verteilung, aes(x = "", y = average, fill = gender)) +
+    geom_bar(stat = "identity", width = 1) +
+    coord_polar("y", start = 0) +
+    scale_fill_manual(values = colors) +
+    pie_chart_theme
 }
 
-pie.bewohner.ges <- function(Daten, header = 'Verteilung der Gesuchten Geschlechter') {
-  Verteilung.ges.pier <- data.frame(
-    label = c("Männlich", "Weiblich", "Egal"),
-    value = c(mean(Daten$g.m), mean(Daten$g.w), mean(Daten$g.e)),
-    color = c("blue", "red", "grey")
+pie.bewohner.ges <- function(Daten) {
+  Verteilung.ges <- data.frame(
+    gender = c("Egal", "Männlich", "Weiblich"),
+    average = c(mean(Daten$g.e), mean(Daten$g.m), mean(Daten$g.w))
   )
-  bewohner.ges.pie <- pier(Verteilung.ges.pier) %>% pie.header(header) 
-  bewohner.ges.pie
+  colors <- c("grey", "blue", "red")
+  ggplot(Verteilung.ges, aes(x = "", y = average, fill = gender)) +
+    geom_bar(stat = "identity", width = 1) +
+    coord_polar("y", start = 0) +
+    scale_fill_manual(values = colors) +
+    pie_chart_theme
 }
-
-# piechart.ggplot <- function(Daten) {
-#   Verteilung <- data.frame(
-#     gender = c("m", "w"),
-#     average = c(mean(Daten$m), mean(Daten$w))
-#   )
-#   
-#   pie_chart_theme <- blank_theme <- theme_minimal() +
-#     theme(
-#       axis.title.x = element_blank(),
-#       axis.title.y = element_blank(),
-#       panel.border = element_blank(),
-#       panel.grid=element_blank(),
-#       axis.ticks = element_blank(),
-#       axis.text.x=element_blank()
-#     )
-#   g <- ggplot(Verteilung, aes(x = "", y = average, fill = gender))
-#   g + geom_bar(stat="identity") + coord_polar("y", start=0) + pie_chart_theme
-# }
