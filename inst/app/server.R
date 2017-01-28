@@ -37,20 +37,59 @@ shinyServer(function(input, output){
     pie.bewohner.ges(wg()$Daten)
   })
   #  ==== Meine Wohnung ====
-  output$mW_qmpreis <- renderText({
-    ber_qmpreis(input)
+  output$qmmiete_box <- renderValueBox({
+    WGgesucht <- wg()$Daten
+    user_qmPreis <- ber_qmpreis(input)
+    stabw <- sd(WGgesucht$miete.proqm)
+    mw <- mean(WGgesucht$miete.proqm)
+    boxColor <- "yellow"
+    boxSymbol <- "hand-o-left"
+    if (user_qmPreis > mw + stabw) {
+      # zu teuer
+      boxColor <- "red" 
+      boxSymbol <- "thumbs-o-down"
+    } else if (user_qmPreis < mw - stabw) {
+      # zu billig
+      boxColor <- "green"
+      boxSymbol <- "thumbs-o-up"
+    }
+    valueBox(paste0(user_qmPreis, "€"), "pro Quadratmeter",icon = shiny::icon(boxSymbol), color = boxColor)
   })    
   output$mW_Hist <- renderPlot({
-    user_qmPreis <- floor(ber_qmpreis(input))
-    filtered <- filter(WGgesucht, PreisProQM > user_qmPreis, PreisProQM < (user_qmPreis + 1))
-    ggplot(WGgesucht,aes(WGgesucht$PreisProQM)) +
+    WGgesucht <- wg()$Daten
+    ggplot(WGgesucht,aes(WGgesucht$miete.proqm)) +
       geom_histogram(breaks = seq(0, 50, by = 1),
                      fill = "black") +
-      geom_histogram(data =filtered, aes(PreisProQM), breaks = seq(0, 50, by = 1),
-                     fill = "red") +
+      geom_vline(aes(xintercept = ber_qmpreis(input) + 0.5), color = "red") +
       labs(title="Konstanz") +
-      labs(x= "Preis pro Quadratmeter", y= "Anzahl") + theme_gray()
-    
+      labs(x= "Preis pro Quadratmeter", y= "Häufigkeit") + theme_gray()
+  })
+  output$mW_Scatter <- renderPlot({
+    WGgesucht <- wg()$Daten
+    user_Punkt <- data.frame(miete = input$mW_preis, groesse = input$mW_qm)
+    ggplot(data = WGgesucht) +
+      geom_point(aes(groesse, miete, alpha = 0.5)) + guides(alpha = FALSE) +
+      geom_point(data = user_Punkt, aes(groesse, miete), color = "red", size = 5) +
+      labs(title = "Konstanz") +
+      labs(x= "Wohnungsgröße", y= "Mietpreis")
+  })
+  output$mW_Hist1 <- renderPlot({
+    WGgesucht <- wg()$Daten
+    ggplot(WGgesucht,aes(WGgesucht$miete)) +
+      geom_histogram(breaks = seq(100, 600, by = 10),
+                     fill = "black") +
+      geom_vline(aes(xintercept = input$mW_preis + 5), color = "red") +
+      labs(title="Konstanz") +
+      labs(x= "Mietpreis", y= "Häufigkeit") + theme_gray()
+  })
+  output$mW_Hist2 <- renderPlot({
+    WGgesucht <- wg()$Daten
+    ggplot(WGgesucht,aes(WGgesucht$groesse)) +
+      geom_histogram(breaks = seq(5, 40, by = 1),
+                     fill = "black") +
+      geom_vline(aes(xintercept = input$mW_qm + 0.5), color = "red") +
+      labs(title="Konstanz") +
+      labs(x= "Wohnungsgröße", y= "Häufigkeit") + theme_gray()
   })
   #  ==== Vergleich ====
 })
