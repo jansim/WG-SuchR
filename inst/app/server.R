@@ -36,9 +36,6 @@ shinyServer(function(input, output){
   output$ueb_pie_gesucht <- renderpier({
     pie.bewohner.ges(wg()$Daten)
   })
-  output$Histogramm1 <- renderPlot({
-    hist(WGgesucht$PreisProQM, xlab = "Preis pro Quadratmeter", ylab = "Häufigkeit", main = "Konstanz")
-  })
   #  ==== Meine Wohnung ====
   output$mW_qmpreis <- renderText({
     ber_qmpreis(input)
