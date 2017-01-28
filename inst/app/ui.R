@@ -8,6 +8,7 @@ source("../../init.R", chdir = T)
 source("ui/uebersicht.R")
 source("ui/meineWohnung.R")
 source("ui/vergleich.R")
+source("ui/download.R")
 
 
 dashboardPage(
@@ -17,14 +18,16 @@ dashboardPage(
       selectizeInput("stadt", "Stadt:", staedte.list),
       menuItem("Übersicht", tabName = "uebersicht", icon = icon("bar-chart")),
       menuItem("Meine Wohnung", tabName = "meineWohnung", icon = icon("home")),
-      menuItem("Vergleich", tabName = "vergleich", icon = icon("balance-scale"))
+      menuItem("Vergleich", tabName = "vergleich", icon = icon("balance-scale")),
+      menuItem("Download", tabName = "download", icon = icon("download"))
     )
   ),
   dashboardBody(
     tabItems(
       uebersicht,
       meineWohnung,
-      vergleich
+      vergleich,
+      download
     )
   )
 )
