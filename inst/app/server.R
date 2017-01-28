@@ -96,4 +96,26 @@ shinyServer(function(input, output){
       labs(x= "Wohnungsgröße", y= "Häufigkeit") + theme_gray()
   })
   #  ==== Vergleich ====
+  #  ==== Download ====
+  dl_data <- reactive({
+    switch(input$dl_dataset,
+      daten = wg()$Daten,
+      cities = staedte
+    )
+  })
+  output$dl_downloadButton <- downloadHandler(
+    filename = function() {
+      name <- switch(input$dl_dataset,
+        daten = "data",
+        cities = "staedte"
+      )
+      paste0("wg_", name, '.csv')
+    },
+    content = function(file) {
+      write.csv(dl_data(), file)
+    }
+  )
+  output$dl_table <- renderTable({
+    dl_data()
+  })
 })
