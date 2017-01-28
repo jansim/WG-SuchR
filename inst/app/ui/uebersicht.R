@@ -4,5 +4,7 @@ uebersicht <- tabItem(tabName = "uebersicht",
   plotOutput("ueb_scatter_bewohner.mieteproqm"),
   plotOutput("ueb_hist_count.bystadtteil"),
   plotOutput("ueb_hist_bewohner.bystadtteil"),
-  plotOutput("ueb_hist_mieteproqm.bystadtteil")
+  plotOutput("ueb_hist_mieteproqm.bystadtteil"),
+  pierOutput("ueb_pie"),
+  pierOutput("ueb_pie_gesucht")
 )

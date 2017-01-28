@@ -72,7 +72,8 @@ pie.bewohner <- function(Daten, header = 'Verteilung der Geschlechter in WGs') {
     value = c(mean(Daten$m), mean(Daten$w)),
     color = c("blue", "red")
   )
-  pier(Verteilung.pier) %>% pie.header(header) 
+  bewohner.pie <- pier(Verteilung.pier) %>% pie.header(header)
+  bewohner.pie
 }
 
 pie.bewohner.ges <- function(Daten, header = 'Verteilung der Gesuchten Geschlechter') {
@@ -81,7 +82,8 @@ pie.bewohner.ges <- function(Daten, header = 'Verteilung der Gesuchten Geschlech
     value = c(mean(Daten$g.m), mean(Daten$g.w), mean(Daten$g.e)),
     color = c("blue", "red", "grey")
   )
-  pier(Verteilung.ges.pier) %>% pie.header(header) 
+  bewohner.ges.pie <- pier(Verteilung.ges.pier) %>% pie.header(header) 
+  bewohner.ges.pie
 }
 
 # piechart.ggplot <- function(Daten) {

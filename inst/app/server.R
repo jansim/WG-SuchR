@@ -30,6 +30,12 @@ shinyServer(function(input, output){
   output$ueb_hist_bewohner.bystadtteil <- renderPlot({
     hist.bewohner.by.stadtteil(wg()$Daten)
   })
+  output$ueb_pie <- renderpier({
+    pie.bewohner(wg()$Daten)
+  })
+  output$ueb_pie_gesucht <- renderpier({
+    pie.bewohner.ges(wg()$Daten)
+  })
   output$Histogramm1 <- renderPlot({
     hist(WGgesucht$PreisProQM, xlab = "Preis pro Quadratmeter", ylab = "Häufigkeit", main = "Konstanz")
   })
