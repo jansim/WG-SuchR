@@ -1,4 +1,6 @@
 #  ==== Constans ====
+DATAIMPORT.ROOT <- paste0(getwd(), "/../data/")
+
 WOHNTYP.WG <- 0
 WOHNTYP.1ZIMMER <- 1
 WOHNTYP.WOHNUNG <- 2
@@ -18,12 +20,20 @@ html.to.num <- function(html) {
 
 # ==== Load Cities ====
 library(jsonlite)
+
+cities.to.list <- function(cities) {
+  cities %>% 
+    select(city_name, city_id.n) %>% 
+    distinct(city_name, .keep_all = T) %>% 
+    unstack(form = city_id.n ~ city_name)
+}
+
 fetch.cities.letter <- function(q) {
   fromJSON(paste0("http://www.wg-gesucht.de/ajax/api/Smp/api.php?action=city-list&language=de&query=", q))
 }
 
 load.cities <- function(forceUpdate = F) {
-  datapath <- "data/wg_staedte.RData"
+  datapath <- paste0(DATAIMPORT.ROOT, "wg_staedte.RData")
   # Load cached data if it exists
   if (file.exists(datapath) && !forceUpdate) {
     load(datapath)
@@ -50,7 +60,6 @@ load.cities <- function(forceUpdate = F) {
   # l
   Staedte
 }
-
 
 # ==== Load actual WG-Gesucht Data ====
 library(rvest)
@@ -131,7 +140,7 @@ fetch.dataframe <- function(city, limit, wohntyp) {
 }
 
 load.data <- function(city = 74, wohntyp = WOHNTYP.WG, limit = 5, forceUpdate = F) {
-  datapath <- paste0("data/wg_data_", city, "_", wohntyp, ".RData")
+  datapath <- paste0(DATAIMPORT.ROOT, "wg_data_", city, "_", wohntyp, ".RData")
   # Load cached data if it exists
   if (file.exists(datapath) && !forceUpdate) {
     load(datapath)
@@ -156,10 +165,9 @@ data.process <- function(data) {
   data
 }
 
-# 
-# DatenListe <- load.data(74)
-# View(DatenListe$timestamp)
-# View(DatenListe$Daten)
-# 
-# Staedte <- load.cities()
-# View(Staedte)
+test <- function() {
+  datapath <- paste0(DATAIMPORT.ROOT, "wg_data_", 74, "_", 0, ".RData") 
+  print(datapath)
+  print(file.exists(datapath))
+  print(getwd())
+}
