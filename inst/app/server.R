@@ -8,8 +8,12 @@ ber_qmpreis <- function(input){
 
 shinyServer(function(input, output){
   #  ==== Laden der Daten ====
+  last.cityid <- 1
   wg <- reactive({
-    load.data(input$stadt)
+    if (!input$stadt == "") {
+      last.cityid <<- input$stadt
+    }
+    load.data(last.cityid)
   })
   #  ==== Übersicht ====
   output$test <- renderText({

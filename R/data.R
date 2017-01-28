@@ -22,10 +22,10 @@ html.to.num <- function(html) {
 library(jsonlite)
 
 cities.to.list <- function(cities) {
-  cities %>% 
-    select(city_name, city_id.n) %>% 
-    distinct(city_name, .keep_all = T) %>% 
-    unstack(form = city_id.n ~ city_name)
+  cities <- cities %>% distinct(city_name, .keep_all = T)
+  l <- as.list(cities$city_id.n)
+  names(l) <- cities$city_name
+  l
 }
 
 fetch.cities.letter <- function(q) {
