@@ -176,5 +176,5 @@ data.by.stadtteil <- function(Daten) {
       bewohner = mean(bewohner),
       stadtteil = stadtteil[1]
     ) %>% 
-    filter(count > 2)
+    filter(count > 1)
 }
