@@ -16,9 +16,6 @@ shinyServer(function(input, output){
     load.data(last.cityid)
   })
   #  ==== Übersicht ====
-  output$test <- renderText({
-    nrow(wg()$Daten)
-  })
   output$ueb_scatter_groesse.miete <- renderPlot({
     scatter.groesse.miete(wg()$Daten)
   })
@@ -26,19 +23,22 @@ shinyServer(function(input, output){
     scatter.bewohner.mieteqm(wg()$Daten)
   })
   output$ueb_hist_count.bystadtteil <- renderPlot({
-    hist.count.by.stadtteil(wg()$Daten)
+    hist.count.by.stadtteil(wg()$Daten, ordered = input$ueb_hist_order)
   })
   output$ueb_hist_mieteproqm.bystadtteil <- renderPlot({
-    hist.mieteproqm.by.stadtteil(wg()$Daten)
+    hist.mieteproqm.by.stadtteil(wg()$Daten, ordered = input$ueb_hist_order)
   })
   output$ueb_hist_bewohner.bystadtteil <- renderPlot({
-    hist.bewohner.by.stadtteil(wg()$Daten)
+    hist.bewohner.by.stadtteil(wg()$Daten, ordered = input$ueb_hist_order)
   })
   output$ueb_pie <- renderPlot({
     pie.bewohner(wg()$Daten)
   })
   output$ueb_pie_gesucht <- renderPlot({
     pie.bewohner.ges(wg()$Daten)
+  })
+  output$ueb_vbox_count <- renderValueBox({
+    valueBox(nrow(wg()$Daten), "Anzahl Reihen",icon = shiny::icon("bars"), color = "blue")
   })
   #  ==== Meine Wohnung ====
   output$qmmiete_box <- renderValueBox({
