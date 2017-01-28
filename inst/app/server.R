@@ -7,11 +7,11 @@ ber_qmpreis <- function(input){
 }
 
 shinyServer(function(input, output){
-  wgData <- reactive({
-    load.data(input$stadt)$Daten
+  wg <- reactive({
+    load.data(input$stadt)
   })
   output$test <- renderText({
-    nrow(wgData())
+    nrow(wg()$Daten)
   })
   output$Histogramm1 <- renderPlot({
     hist(WGgesucht$PreisProQM, xlab = "Preis pro Quadratmeter", ylab = "Häufigkeit", main = "Konstanz")
