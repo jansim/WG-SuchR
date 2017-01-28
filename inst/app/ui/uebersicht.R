@@ -1,0 +1,1 @@
+uebersicht <- tabItem(tabName = "uebersicht", plotOutput("Histogramm1"))
