@@ -165,9 +165,16 @@ data.process <- function(data) {
   data
 }
 
-test <- function() {
-  datapath <- paste0(DATAIMPORT.ROOT, "wg_data_", 74, "_", 0, ".RData") 
-  print(datapath)
-  print(file.exists(datapath))
-  print(getwd())
+# Daten nach Stadtteil gruppieren
+data.by.stadtteil <- function(Daten) {
+  Daten %>% 
+    mutate(stadtteil.lower = tolower(stadtteil)) %>% 
+    group_by(stadtteil.lower) %>%
+    summarise(
+      count = n(),
+      miete.proqm = mean(miete.proqm),
+      bewohner = mean(bewohner),
+      stadtteil = stadtteil[1]
+    ) %>% 
+    filter(count > 2)
 }
