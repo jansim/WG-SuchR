@@ -12,7 +12,7 @@ source("ui/download.R")
 
 
 dashboardPage(
-  dashboardHeader(title = "MeatvergleichR", titleWidth = 230, disable = FALSE),
+  dashboardHeader(title = "WG-SuchR", titleWidth = 230, disable = FALSE),
   dashboardSidebar(
     sidebarMenu(
       selectizeInput("stadt", "Stadt:", staedte.list),
