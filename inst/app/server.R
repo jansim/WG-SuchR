@@ -96,6 +96,26 @@ shinyServer(function(input, output){
       labs(x= "Wohnungsgröße", y= "Häufigkeit") + theme_gray()
   })
   #  ==== Vergleich ====
+  last.cityid.vergleich <- 1
+  wg.vergleich <- reactive({
+    if (!input$vg_stadt == "") {
+      last.cityid.vergleich <<- input$vg_stadt
+    }
+    load.data(last.cityid.vergleich)
+  })
+  output$vg_hist_mieteproqm <- renderPlot({
+    Daten <- wg()$Daten
+    Daten.vergleich <- wg.vergleich()$Daten
+    
+    ggplot(Daten) +
+      geom_histogram(aes(miete.proqm), binwidth = .5, position = "dodge", alpha = .5, breaks = seq(0,50, by = 1), fill = "black") +
+      geom_vline(aes(xintercept = (round(mean(Daten$miete.proqm),digits = 0) +.5) + 1)) +
+      geom_histogram(aes(Daten.vergleich$miete.proqm), binwidth = .5, position = "dodge", alpha = .5, breaks = seq(0,50, by = 1), fill = "red") +
+      geom_vline(aes(xintercept = (round(mean(Daten.vergleich$miete.proqm), digits = 0)+ .5) + 1), color = "red") +
+      theme_gray() +
+      labs(title="Vergleich") +
+      labs(x= "Preis pro Quadrartmeter", y= "Anzahl")
+  })
   #  ==== Download ====
   dl_data <- reactive({
     switch(input$dl_dataset,
