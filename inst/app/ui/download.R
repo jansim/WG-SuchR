@@ -1,5 +1,4 @@
 download <- tabItem(tabName = "download",
-  "Download",
   tableOutput('table'),
   fluidRow(
     box(title = "Datensatz auswählen", status = "primary", width = 12,
