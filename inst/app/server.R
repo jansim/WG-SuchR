@@ -40,6 +40,10 @@ shinyServer(function(input, output){
   output$ueb_vbox_count <- renderValueBox({
     valueBox(nrow(wg()$Daten), "Anzahl Reihen",icon = shiny::icon("bars"), color = "blue")
   })
+  output$ueb_vbox_active <- renderValueBox({
+    Daten.active <- filter(wg()$Daten, active == TRUE)
+    valueBox(nrow(Daten.active), "Anzahl aktive Reihen",icon = shiny::icon("check"), color = "green")
+  })
   #  ==== Meine Wohnung ====
   output$qmmiete_box <- renderValueBox({
     WGgesucht <- wg()$Daten

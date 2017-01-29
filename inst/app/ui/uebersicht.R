@@ -14,6 +14,7 @@ uebersicht <- tabItem(tabName = "uebersicht",
       "Test"
     ),
     valueBoxOutput("ueb_vbox_count", width = 3),
+    valueBoxOutput("ueb_vbox_active", width = 3),
     box(width = 3,
       checkboxInput("ueb_hist_order", "Histogramme ordnen")
     ),
