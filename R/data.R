@@ -178,3 +178,18 @@ data.by.stadtteil <- function(Daten) {
     ) %>% 
     filter(count > 1)
 }
+
+data.same.n <- function(Daten1, Daten2) {
+  n1 <- nrow(Daten1)
+  n2 <- nrow(Daten2)
+  
+  if (n1 > n2) {
+    Daten1 <- sample_n(Daten1, n2)
+  } else if (n2 > n1) {
+    Daten2 <- sample_n(Daten2, n1)
+  }
+  l <- list()
+  l$Daten1 <- Daten1
+  l$Daten2 <- Daten2
+  l
+}

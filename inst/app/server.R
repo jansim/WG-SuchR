@@ -104,8 +104,10 @@ shinyServer(function(input, output){
     load.data(last.cityid.vergleich)
   })
   output$vg_hist_mieteproqm <- renderPlot({
-    Daten <- wg()$Daten
-    Daten.vergleich <- wg.vergleich()$Daten
+    # Gleich große Anzahl Reihen
+    list.Daten <- data.same.n(wg()$Daten, wg.vergleich()$Daten)
+    Daten <- list.Daten$Daten1
+    Daten.vergleich <- list.Daten$Daten2
     
     ggplot(Daten) +
       geom_histogram(aes(miete.proqm), binwidth = .5, position = "dodge", alpha = .5, breaks = seq(0,50, by = 1), fill = "black") +
