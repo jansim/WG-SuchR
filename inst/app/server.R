@@ -114,13 +114,25 @@ shinyServer(function(input, output){
     Daten.vergleich <- list.Daten$Daten2
     
     ggplot(Daten) +
-      geom_histogram(aes(miete.proqm), binwidth = .5, position = "dodge", alpha = .5, breaks = seq(0,50, by = 1), fill = "black") +
-      geom_vline(aes(xintercept = (round(mean(Daten$miete.proqm),digits = 0) +.5) + 1)) +
+      geom_histogram(aes(miete.proqm), binwidth = .5, position = "dodge", alpha = .5, breaks = seq(0,50, by = 1), fill = "blue") +
+      geom_vline(aes(xintercept = (round(mean(Daten$miete.proqm),digits = 0) +.5) + 1), color = "blue") +
       geom_histogram(aes(Daten.vergleich$miete.proqm), binwidth = .5, position = "dodge", alpha = .5, breaks = seq(0,50, by = 1), fill = "red") +
       geom_vline(aes(xintercept = (round(mean(Daten.vergleich$miete.proqm), digits = 0)+ .5) + 1), color = "red") +
       theme_gray() +
       labs(title="Vergleich") +
       labs(x= "Preis pro Quadrartmeter", y= "Anzahl")
+  })
+  output$mean_1 <- renderValueBox({
+    list.Daten <- data.same.n(wg()$Daten, wg.vergleich()$Daten)
+    Daten <- list.Daten$Daten1
+    Daten.vergleich <- list.Daten$Daten2
+    valueBox(paste0(round(mean(Daten$miete.proqm), digits = 2), "€"), "pro Quadratmeter im Schnitt",icon = shiny::icon ("money"), color = "blue")
+  })
+  output$mean_2 <- renderValueBox({
+    list.Daten <- data.same.n(wg()$Daten, wg.vergleich()$Daten)
+    Daten <- list.Daten$Daten1
+    Daten.vergleich <- list.Daten$Daten2
+    valueBox(paste0(round(mean(Daten.vergleich$miete.proqm), digits = 2), "€"), "pro Quadratmeter im Schnitt",icon = shiny::icon ("money"), color = "red")
   })
   #  ==== Download ====
   dl_data <- reactive({
