@@ -37,6 +37,9 @@ shinyServer(function(input, output){
   output$ueb_hist_bewohner.bystadtteil <- renderPlot({
     hist.bewohner.by.stadtteil(wg()$Daten, ordered = input$ueb_hist_order)
   })
+  output$ueb_hist_geschlverh.bystadtteil <- renderPlot({
+    hist.geschl.by.stadtteil(wg()$Daten, ordered = input$ueb_hist_order)
+  })
   output$ueb_pie <- renderPlot({
     pie.bewohner(wg()$Daten)
   })
