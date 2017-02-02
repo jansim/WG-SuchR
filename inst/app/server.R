@@ -138,13 +138,13 @@ shinyServer(function(input, output){
     list.Daten <- data.same.n(wg()$Daten, wg.vergleich()$Daten)
     Daten <- list.Daten$Daten1
     Daten.vergleich <- list.Daten$Daten2
-    valueBox(paste0(round(mean(Daten$miete.proqm), digits = 2), "€"), "pro Quadratmeter im Schnitt",icon = shiny::icon ("money"), color = "blue")
+    valueBox(paste0(round(mean(Daten$miete.proqm), digits = 2), "€"), subtitle = paste("pro Quadratmeter im Schnitt in", stadt()$city_name) ,icon = shiny::icon ("money"), color = "blue")
   })
   output$mean_2 <- renderValueBox({
     list.Daten <- data.same.n(wg()$Daten, wg.vergleich()$Daten)
     Daten <- list.Daten$Daten1
     Daten.vergleich <- list.Daten$Daten2
-    valueBox(paste0(round(mean(Daten.vergleich$miete.proqm), digits = 2), "€"), "pro Quadratmeter im Schnitt",icon = shiny::icon ("money"), color = "red")
+    valueBox(paste0(round(mean(Daten.vergleich$miete.proqm), digits = 2), "€"), subtitle =  paste("pro Quadratmeter im Schnitt in", stadt.vergleich()$city_name) ,icon = shiny::icon ("money"), color = "red")
   })
   #  ==== Download ====
   dl_data <- reactive({
