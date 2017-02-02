@@ -9,11 +9,17 @@ ber_qmpreis <- function(input){
 shinyServer(function(input, output){
   #  ==== Laden der Daten ====
   last.cityid <- 1
-  wg <- reactive({
+  cityid <- reactive({
     if (!input$stadt == "") {
       last.cityid <<- input$stadt
     }
-    load.data(last.cityid)
+    last.cityid
+  })
+  wg <- reactive({
+    load.data(cityid())
+  })
+  stadt <- reactive({
+    filter(staedte, city_id == cityid())
   })
   #  ==== Übersicht ====
   output$ueb_scatter_groesse.miete <- renderPlot({
