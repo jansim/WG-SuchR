@@ -107,11 +107,17 @@ shinyServer(function(input, output){
   })
   #  ==== Vergleich ====
   last.cityid.vergleich <- 1
-  wg.vergleich <- reactive({
+  cityid.vergleich <- reactive({
     if (!input$vg_stadt == "") {
       last.cityid.vergleich <<- input$vg_stadt
     }
-    load.data(last.cityid.vergleich)
+    last.cityid.vergleich
+  })
+  wg.vergleich <- reactive({
+    load.data(cityid.vergleich())
+  })
+  stadt.vergleich <- reactive({
+    filter(staedte, city_id == cityid.vergleich())
   })
   output$vg_hist_mieteproqm <- renderPlot({
     # Gleich große Anzahl Reihen
