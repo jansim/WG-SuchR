@@ -3,3 +3,4 @@
 .RData
 .Ruserdata
 private/
+.DS_Store
