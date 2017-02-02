@@ -75,7 +75,7 @@ shinyServer(function(input, output){
       geom_histogram(breaks = seq(0, 50, by = 1),
                      fill = "black") +
       geom_vline(aes(xintercept = ber_qmpreis(input) + 0.5), color = "red") +
-      labs(title="Konstanz") +
+      labs(title=stadt()$city_and_state) +
       labs(x= "Preis pro Quadratmeter", y= "Häufigkeit") + theme_gray()
   })
   output$mW_Scatter <- renderPlot({
@@ -84,7 +84,7 @@ shinyServer(function(input, output){
     ggplot(data = WGgesucht) +
       geom_point(aes(groesse, miete, alpha = 0.5)) + guides(alpha = FALSE) +
       geom_point(data = user_Punkt, aes(groesse, miete), color = "red", size = 5) +
-      labs(title = "Konstanz") +
+      labs(title = stadt()$city_and_state) +
       labs(x= "Wohnungsgröße", y= "Mietpreis")
   })
   output$mW_Hist1 <- renderPlot({
@@ -93,7 +93,7 @@ shinyServer(function(input, output){
       geom_histogram(breaks = seq(100, 600, by = 10),
                      fill = "black") +
       geom_vline(aes(xintercept = input$mW_preis + 5), color = "red") +
-      labs(title="Konstanz") +
+      labs(title=stadt()$city_and_state) +
       labs(x= "Mietpreis", y= "Häufigkeit") + theme_gray()
   })
   output$mW_Hist2 <- renderPlot({
@@ -102,7 +102,7 @@ shinyServer(function(input, output){
       geom_histogram(breaks = seq(5, 40, by = 1),
                      fill = "black") +
       geom_vline(aes(xintercept = input$mW_qm + 0.5), color = "red") +
-      labs(title="Konstanz") +
+      labs(title=stadt()$city_and_state) +
       labs(x= "Wohnungsgröße", y= "Häufigkeit") + theme_gray()
   })
   #  ==== Vergleich ====
