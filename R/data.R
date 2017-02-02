@@ -139,16 +139,29 @@ fetch.dataframe <- function(city, limit, wohntyp) {
   df
 }
 
-load.data <- function(city = 74, wohntyp = WOHNTYP.WG, limit = 5, forceUpdate = F) {
+load.data <- function(city = 74, wohntyp = WOHNTYP.WG, rows = 100, forceUpdate = F) {
   datapath <- paste0(DATAIMPORT.ROOT, "wg_data_", city, "_", wohntyp, ".RData")
+  
+  update <- FALSE
   # Load cached data if it exists
   if (file.exists(datapath) && !forceUpdate) {
     load(datapath)
-  } else {
-    Daten <- fetch.dataframe(city = city, wohntyp = wohntyp, limit = limit)
+    
+    if(nrow(Daten) < rows) {
+      update <- TRUE
+    }
+  }
+  
+  if (update) {
+    Daten <- fetch.dataframe(city = city, wohntyp = wohntyp, limit = ceiling(rows / 20))
     Daten.timestamp <- date()
     save(Daten, Daten.timestamp, file = datapath)
   }
+
+  if (nrow(Daten) > rows) {
+    Daten <- head(Daten, rows)
+  }
+  
   # List to return results
   l <- list()
   l$Daten <- data.process(Daten)

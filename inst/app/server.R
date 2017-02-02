@@ -16,7 +16,7 @@ shinyServer(function(input, output){
     last.cityid
   })
   wg <- reactive({
-    load.data(cityid())
+    load.data(cityid(), rows = input$rows_to_load)
   })
   stadt <- reactive({
     filter(staedte, city_id == cityid())
