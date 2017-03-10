@@ -142,13 +142,13 @@ fetch.dataframe <- function(city, limit, wohntyp) {
 load.data <- function(city = 74, wohntyp = WOHNTYP.WG, rows = 100, forceUpdate = F) {
   datapath <- paste0(DATAIMPORT.ROOT, "wg_data_", city, "_", wohntyp, ".RData")
   
-  update <- FALSE
+  update <- TRUE
   # Load cached data if it exists
   if (file.exists(datapath) && !forceUpdate) {
     load(datapath)
     
-    if(nrow(Daten) < rows) {
-      update <- TRUE
+    if(nrow(Daten) > rows) {
+      update <- FALSE
     }
   }
   
