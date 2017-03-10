@@ -171,9 +171,15 @@ load.data <- function(city = 74, wohntyp = WOHNTYP.WG, rows = 100, forceUpdate =
 
 # Verarbeitung der Daten / Vorbereiten von Werten
 data.process <- function(data) {
+  # Bewohneranzahlen berechnen
   data$bewohner.ges <- data$g.m + data$g.w + data$g.e
   data$bewohner <- data$m + data$w + data$bewohner.ges
   
+  # Geschlechtsverhältnis berechnen
+  data$geschl.verh <- data$m / (data$m + data$w)
+  data[is.nan(data$geschl.verh),]$geschl.verh = NA # replace all NaN with NA
+  
+  # Miete pro m^2 berechnen
   data$miete.proqm <- round(data$miete / data$groesse, digits = 2)
   data
 }
@@ -185,8 +191,9 @@ data.by.stadtteil <- function(Daten) {
     group_by(stadtteil.lower) %>%
     summarise(
       count = n(),
-      miete.proqm = mean(miete.proqm),
-      bewohner = mean(bewohner),
+      miete.proqm = mean(miete.proqm, na.rm = T),
+      bewohner = mean(bewohner, na.rm = T),
+      geschl.verh = mean(geschl.verh, na.rm = T),
       stadtteil = stadtteil[1]
     ) %>% 
     filter(count > 1)

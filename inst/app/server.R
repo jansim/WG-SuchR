@@ -42,6 +42,9 @@ shinyServer(function(input, output){
     hist.bewohner.by.stadtteil(wg()$Daten, ordered = input$ueb_hist_order)+
       labs(x= "Stadtteil", y="Durchschnittliche Bewohnerzahl")
   })
+  output$ueb_hist_geschlverh.bystadtteil <- renderPlot({
+    hist.geschl.by.stadtteil(wg()$Daten, ordered = input$ueb_hist_order)
+  })
   output$ueb_pie <- renderPlot({
     pie.bewohner(wg()$Daten)
   })
@@ -119,16 +122,14 @@ shinyServer(function(input, output){
     last.cityid.vergleich
   })
   wg.vergleich <- reactive({
-    load.data(cityid.vergleich())
+    load.data(cityid.vergleich(), rows = input$rows_to_load)
   })
   stadt.vergleich <- reactive({
     filter(staedte, city_id == cityid.vergleich())
   })
   output$vg_hist_mieteproqm <- renderPlot({
-    # Gleich große Anzahl Reihen
-    list.Daten <- data.same.n(wg()$Daten, wg.vergleich()$Daten)
-    Daten <- list.Daten$Daten1
-    Daten.vergleich <- list.Daten$Daten2
+    Daten <- wg()$Daten
+    Daten.vergleich <- wg.vergleich()$Daten
     
     ggplot(Daten) +
       geom_histogram(aes(miete.proqm), binwidth = .5, position = "dodge", alpha = .5, breaks = seq(0,50, by = 1), fill = "blue") +

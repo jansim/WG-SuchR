@@ -27,6 +27,14 @@ scatter.bewohner.mieteqm <- function(Daten) {
     guides(alpha=FALSE)  
 }
 
+scatter.geschl.mieteqm <- function(Daten) {
+  lm.mieteqm.geschl <- lm(miete.proqm ~ geschl.verh, data = Daten)
+  ggplot(Daten) +
+    geom_point(aes(x = geschl.verh, y = miete.proqm, alpha = .5)) +
+    geom_abline(intercept = lm.mieteqm.geschl$coefficients[1], slope = lm.mieteqm.geschl$coefficients[2], colour="#E41A1C") +
+    guides(alpha=FALSE)  
+}
+
 
 # ==== Nach Stadtteil ====
 # Anzahl Wohnungen nach Stadtteil
@@ -62,6 +70,17 @@ hist.bewohner.by.stadtteil <- function(Daten, ordered = F) {
   p
 }
 
+# Geschlechterverhältnisse nach Stadtteil
+hist.geschl.by.stadtteil <- function(Daten, ordered = F) {
+  Daten.by.stadtteil <- data.by.stadtteil(Daten)
+  if (ordered) {
+    p <- ggplot(Daten.by.stadtteil) + geom_bar(aes(x = reorder(stadtteil, -geschl.verh), y = geschl.verh), stat = "identity") + theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5))
+  } else {
+    p <- ggplot(Daten.by.stadtteil) + geom_bar(aes(x = stadtteil, y = geschl.verh), stat = "identity") + theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5))
+  }
+  p <- p + geom_hline(yintercept = 0.5, alpha = .5)
+  p
+}
 
 # ==== Pie Charts / Tortendiagramme ====
 # Theme für ggplot pie charts
