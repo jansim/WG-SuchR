@@ -23,19 +23,24 @@ shinyServer(function(input, output){
   })
   #  ==== Übersicht ====
   output$ueb_scatter_groesse.miete <- renderPlot({
-    scatter.groesse.miete(wg()$Daten)
+    scatter.groesse.miete(wg()$Daten)+
+      labs(x= "Wohnungsgröße", y= "Mietpreis")
   })
   output$ueb_scatter_bewohner.mieteproqm <- renderPlot({
-    scatter.bewohner.mieteqm(wg()$Daten)
+    scatter.bewohner.mieteqm(wg()$Daten)+
+      labs(x= "Bewohnerzahl", y= "Preis pro Quadartmeter")
   })
   output$ueb_hist_count.bystadtteil <- renderPlot({
-    hist.count.by.stadtteil(wg()$Daten, ordered = input$ueb_hist_order)
+    hist.count.by.stadtteil(wg()$Daten, ordered = input$ueb_hist_order)+
+      labs(x= "Stadtteil", y="Anzahl der Wohnungen")
   })
   output$ueb_hist_mieteproqm.bystadtteil <- renderPlot({
-    hist.mieteproqm.by.stadtteil(wg()$Daten, ordered = input$ueb_hist_order)
+    hist.mieteproqm.by.stadtteil(wg()$Daten, ordered = input$ueb_hist_order)+
+      labs(x= "Stadtteil", y="Durchschnittlicher Preis pro Quadratmeter")
   })
   output$ueb_hist_bewohner.bystadtteil <- renderPlot({
-    hist.bewohner.by.stadtteil(wg()$Daten, ordered = input$ueb_hist_order)
+    hist.bewohner.by.stadtteil(wg()$Daten, ordered = input$ueb_hist_order)+
+      labs(x= "Stadtteil", y="Durchschnittliche Bewohnerzahl")
   })
   output$ueb_pie <- renderPlot({
     pie.bewohner(wg()$Daten)
