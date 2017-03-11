@@ -6,6 +6,8 @@ WOHNTYP.1ZIMMER <- 1
 WOHNTYP.WOHNUNG <- 2
 WOHNTYP.HAUS <- 3
 
+ANZEIGEN.PRO.SEITE <- 20
+
 # ==== Helpers ====
 txt.to.num <- function(str) {
   regmatches(str, regexpr("[[:digit:]]+", str)) %>%
@@ -90,6 +92,10 @@ fetch.page <- function(session) {
     stringsAsFactors = F
   )
   
+  if (count <= 0) {
+    return(df.temp)
+  }
+  
   for (i in 1:count) {
     tr <- trs[i + skip_rows]
     children <- html_children(tr)
@@ -132,11 +138,15 @@ fetch.dataframe <- function(city, limit, wohntyp, onUpdate = NULL) {
   df <- fetch.page(sess) # erste Seite laden
   if (!is.null(onUpdate)) { onUpdate(1 / limit) }
   
-  if (limit > 1) {
+  if (limit > 1 && nrow(df) == ANZEIGEN.PRO.SEITE) {
     for(i in 1:(limit - 1)) {
       sess <- follow_link(sess, "»") # nächste Seiten laden
-      df <- rbind(df, fetch.page(sess))
+      
+      df.neu <- fetch.page(sess)
+      df <- rbind(df, df.neu)
       if (!is.null(onUpdate)) { onUpdate((i + 1) / limit) }
+      
+      if (nrow(df) < ANZEIGEN.PRO.SEITE) { break } # Schleife verlassen wenn keine nächste Seite vorhanden
     } 
   }
   
@@ -183,7 +193,7 @@ data.process <- function(data) {
   
   # Geschlechtsverhältnis berechnen
   data$geschl.verh <- data$m / (data$m + data$w)
-  data[is.nan(data$geschl.verh),]$geschl.verh = NA # replace all NaN with NA
+  if (nrow(data) > 0) data[is.nan(data$geschl.verh),]$geschl.verh <- NA # replace all NaN with NA
   
   # Miete pro m^2 berechnen
   data$miete.proqm <- round(data$miete / data$groesse, digits = 2)
