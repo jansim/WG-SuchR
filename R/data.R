@@ -125,21 +125,25 @@ fetch.page <- function(session) {
   df.temp
 }
 
-fetch.dataframe <- function(city, limit, wohntyp) {
+fetch.dataframe <- function(city, limit, wohntyp, onUpdate = NULL) {
   sess <- html_session(paste0("http://www.wg-gesucht.de/wg-zimmer-in-Konstanz.", city ,".0.0.0.html"))
   session <- sess
   
-  df <- fetch.page(sess)
+  df <- fetch.page(sess) # erste Seite laden
+  if (!is.null(onUpdate)) { onUpdate(1 / limit) }
+  
   if (limit > 1) {
     for(i in 1:(limit - 1)) {
-      sess <- follow_link(sess, "»")
+      sess <- follow_link(sess, "»") # nächste Seiten laden
       df <- rbind(df, fetch.page(sess))
+      if (!is.null(onUpdate)) { onUpdate((i + 1) / limit) }
     } 
   }
+  
   df
 }
 
-load.data <- function(city = 74, wohntyp = WOHNTYP.WG, rows = 100, forceUpdate = F) {
+load.data <- function(city = 74, wohntyp = WOHNTYP.WG, rows = 100, forceUpdate = F, onUpdate = NULL) {
   datapath <- paste0(DATAIMPORT.ROOT, "wg_data_", city, "_", wohntyp, ".RData")
   
   update <- TRUE
@@ -153,9 +157,11 @@ load.data <- function(city = 74, wohntyp = WOHNTYP.WG, rows = 100, forceUpdate =
   }
   
   if (update) {
-    Daten <- fetch.dataframe(city = city, wohntyp = wohntyp, limit = ceiling(rows / 20))
+    Daten <- fetch.dataframe(city = city, wohntyp = wohntyp, limit = ceiling(rows / 20), onUpdate = onUpdate)
     Daten.timestamp <- date()
     save(Daten, Daten.timestamp, file = datapath)
+  } else {
+    if (!is.null(onUpdate)) { onUpdate(1) } # progress auf 1 setzen
   }
 
   if (nrow(Daten) > rows) {

@@ -1,9 +1,12 @@
-source("R/data.R")
+source("init.R")
 
-library(dplyr)
+progressFunc <- function(progress) {
+  print(progress)
+}
 
-DatenListe <- load.data(74, limit = 25)
+DatenListe <- load.data(74, onUpdate = progressFunc)
 Daten <- DatenListe$Daten
+
 Daten %>% 
   select(stadtteil) %>% 
   distinct()

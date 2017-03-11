@@ -16,7 +16,15 @@ shinyServer(function(input, output){
     last.cityid
   })
   wg <- reactive({
-    load.data(cityid(), rows = input$rows_to_load)
+    # Progress Meldung anzeigen
+    progress <- shiny::Progress$new()
+    progress$set(message = "Lade Daten", value = 0)
+    on.exit(progress$close()) # Progress schließen wenn reactive fertig
+    updateProgress <- function(value) {
+      progress$set(value = value)
+    }
+    # Daten laden
+    load.data(cityid(), rows = input$rows_to_load, onUpdate = updateProgress)
   })
   stadt <- reactive({
     filter(staedte, city_id == cityid())
