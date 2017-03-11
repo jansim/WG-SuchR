@@ -51,7 +51,8 @@ shinyServer(function(input, output){
       labs(x= "Stadtteil", y="Durchschnittliche Bewohnerzahl")
   })
   output$ueb_hist_geschlverh.bystadtteil <- renderPlot({
-    hist.geschl.by.stadtteil(wg()$Daten, ordered = input$ueb_hist_order)
+    hist.geschl.by.stadtteil(wg()$Daten, ordered = input$ueb_hist_order)+
+      labs(x= "Stadtteil", y="Geschlechterverhältnis (Anteil Männer)")
   })
   output$ueb_pie <- renderPlot({
     pie.bewohner(wg()$Daten)
