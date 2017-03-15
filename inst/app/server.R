@@ -55,10 +55,10 @@ shinyServer(function(input, output){
       labs(x= "Stadtteil", y="Geschlechterverhältnis (Anteil Männer)")
   })
   output$ueb_pie <- renderPlot({
-    pie.bewohner(wg()$Daten)
+    pie.bewohner(wg()$Daten) + labs(fill="Geschlecht")
   })
   output$ueb_pie_gesucht <- renderPlot({
-    pie.bewohner.ges(wg()$Daten)
+    pie.bewohner.ges(wg()$Daten) + labs(fill="Geschlecht")
   })
   output$ueb_vbox_count <- renderValueBox({
     valueBox(nrow(wg()$Daten), "Anzahl Reihen",icon = shiny::icon("bars"), color = "blue")
