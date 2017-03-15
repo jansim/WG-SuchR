@@ -24,7 +24,9 @@ shinyServer(function(input, output){
       progress$set(value = value)
     }
     # Daten laden
-    load.data(cityid(), rows = input$rows_to_load, onUpdate = updateProgress)
+    wgInfo <- load.data(cityid(), rows = input$rows_to_load, onUpdate = updateProgress)
+    if (nrow(wgInfo$Daten) == 0) {showNotification(ui = "Keine Anzeigen für diese Stadt gefunden", type = "error")}
+    wgInfo
   })
   stadt <- reactive({
     filter(staedte, city_id == cityid())
