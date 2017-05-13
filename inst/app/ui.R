@@ -1,5 +1,5 @@
 # Load functions
-source("../../R/init.R", chdir = T)
+source("../../init.R", chdir = T)
 
 # Load Tab Contents
 source("ui/uebersicht.R")
