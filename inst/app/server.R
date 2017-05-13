@@ -84,40 +84,24 @@ shinyServer(function(input, output){
       boxSymbol <- "thumbs-o-up"
     }
     valueBox(paste0(user_qmPreis, "€"), "pro Quadratmeter",icon = shiny::icon(boxSymbol), color = boxColor)
-  })    
+  })  
   output$mW_Hist <- renderPlot({
-    WGgesucht <- wg()$Daten
-    ggplot(WGgesucht,aes(WGgesucht$miete.proqm)) +
-      geom_histogram(breaks = seq(0, 50, by = 1),
-                     fill = "black") +
-      geom_vline(aes(xintercept = ber_qmpreis(input) + 0.5), color = "red") +
+    histMieteQM(wg()$Daten, ber_qmpreis(input)) +
       labs(title=stadt()$city_and_state) +
       labs(x= "Preis pro Quadratmeter", y= "Häufigkeit") + theme_gray()
   })
   output$mW_Scatter <- renderPlot({
-    WGgesucht <- wg()$Daten
-    user_Punkt <- data.frame(miete = input$mW_preis, groesse = input$mW_qm)
-    ggplot(data = WGgesucht) +
-      geom_point(aes(groesse, miete, alpha = 0.5)) + guides(alpha = FALSE) +
-      geom_point(data = user_Punkt, aes(groesse, miete), color = "red", size = 5) +
+    scatterMieteGroeße(wg()$Daten, data.frame(miete = input$mW_preis, groesse = input$mW_qm)) +
       labs(title = stadt()$city_and_state) +
       labs(x= "Wohnungsgröße", y= "Mietpreis")
   })
   output$mW_Hist1 <- renderPlot({
-    WGgesucht <- wg()$Daten
-    ggplot(WGgesucht,aes(WGgesucht$miete)) +
-      geom_histogram(breaks = seq(100, 600, by = 10),
-                     fill = "black") +
-      geom_vline(aes(xintercept = input$mW_preis + 5), color = "red") +
+    histMiete(wg()$Daten, input$mW_preis) +
       labs(title=stadt()$city_and_state) +
       labs(x= "Mietpreis", y= "Häufigkeit") + theme_gray()
   })
   output$mW_Hist2 <- renderPlot({
-    WGgesucht <- wg()$Daten
-    ggplot(WGgesucht,aes(WGgesucht$groesse)) +
-      geom_histogram(breaks = seq(5, 40, by = 1),
-                     fill = "black") +
-      geom_vline(aes(xintercept = input$mW_qm + 0.5), color = "red") +
+    histQM(wg()$Daten, input$mW_qm) +
       labs(title=stadt()$city_and_state) +
       labs(x= "Wohnungsgröße", y= "Häufigkeit") + theme_gray()
   })
@@ -136,15 +120,7 @@ shinyServer(function(input, output){
     filter(staedte, city_id == cityid.vergleich())
   })
   output$vg_hist_mieteproqm <- renderPlot({
-    Daten <- wg()$Daten
-    Daten.vergleich <- wg.vergleich()$Daten
-    
-    ggplot(Daten) +
-      geom_histogram(aes(miete.proqm), binwidth = .5, position = "dodge", alpha = .5, breaks = seq(0,50, by = 1), fill = "blue") +
-      geom_vline(aes(xintercept = (round(mean(Daten$miete.proqm),digits = 0) +.5) + 1), color = "blue") +
-      geom_histogram(aes(Daten.vergleich$miete.proqm), binwidth = .5, position = "dodge", alpha = .5, breaks = seq(0,50, by = 1), fill = "red") +
-      geom_vline(aes(xintercept = (round(mean(Daten.vergleich$miete.proqm), digits = 0)+ .5) + 1), color = "red") +
-      theme_gray() +
+    histVergleich(wg()$Daten, wg.vergleich()$Daten)+
       labs(title="Vergleich") +
       labs(x= "Preis pro Quadrartmeter", y= "Anzahl")
   })
