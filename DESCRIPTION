@@ -1,9 +1,9 @@
-Package: WG-SuchR
+Package: WGSuchR
 Type: Package
 Title: Daten von der Website wg-gesucht.de Scrapen und Statistiken Generieren
 Version: 0.1.0
 Author: Jan Simson, Sophie Breunig, Lisa Beckmann
-Maintainer: Jan Simson
+Maintainer: Jan Simson <keine@angabe>
 Description: WG-SuchR ist eine App die mit R und Shiny erstellt wurde. 
     Sie ermöglicht es Daten zu WG-Anzeigen von der Webseite wg-gesucht.de zu beziehen
     und diese direkt auszuwerten. Die Auswertung und Datensammlung erfolgt immer für eine
@@ -12,4 +12,5 @@ Description: WG-SuchR ist eine App die mit R und Shiny erstellt wurde.
 License: none
 Encoding: UTF-8
 LazyData: true
-Imports: shiny, shinydashboard, rvest, jsonlite, dplyr, tidyverse, ggplot2
+Imports: shiny, shinydashboard, rvest, jsonlite, tidyverse, ggplot2
+RoxygenNote: 6.0.1
