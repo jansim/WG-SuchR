@@ -2,5 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
-private/
+inst/private/
 .DS_Store
