@@ -1,6 +1,3 @@
-library(shiny)
-
-
 ber_qmpreis <- function(input){
   m <- input$mW_preis / input$mW_qm
   round(m, digits = 0)

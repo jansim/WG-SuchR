@@ -1,6 +1,3 @@
-library(shiny)
-library(shinydashboard)
-
 # Load functions
 source("../../init.R", chdir = T)
 
