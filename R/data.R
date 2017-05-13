@@ -140,7 +140,7 @@ fetch.dataframe <- function(city, limit, wohntyp, onUpdate = NULL) {
   
   if (limit > 1 && nrow(df) == ANZEIGEN.PRO.SEITE) {
     for(i in 1:(limit - 1)) {
-      sess <- follow_link(sess, "»") # nächste Seiten laden
+      sess <- jump_to(sess, paste0("http://www.wg-gesucht.de/wg-zimmer-in-Konstanz.", city ,".0.0.", i,".html")) # nächste Seiten laden
       
       df.neu <- fetch.page(sess)
       df <- rbind(df, df.neu)
