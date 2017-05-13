@@ -1,7 +1,3 @@
-library(ggplot2)
-library(dplyr)
-library(tidyverse)
-
 # ==== Scatterplotts ====
 scatter.groesse.miete <- function(Daten) {
   lm.miete.groesse <- lm(miete ~ groesse, data = Daten)
