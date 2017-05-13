@@ -1,4 +1,12 @@
 # ==== Scatterplotts ====
+#' Scatterplot Miete nach Größe
+#'
+#' @param Daten 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 scatter.groesse.miete <- function(Daten) {
   lm.miete.groesse <- lm(miete ~ groesse, data = Daten)
   ggplot(Daten) +
@@ -7,6 +15,14 @@ scatter.groesse.miete <- function(Daten) {
     guides(alpha=FALSE)
 }
 
+#' Scatterplot Miete nach Bewohnerzahl
+#'
+#' @param Daten 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 scatter.bewohner.miete <- function(Daten) {
   lm.miete.bewohner <- lm(miete ~ bewohner, data = Daten)
   ggplot(Daten) +
@@ -15,6 +31,14 @@ scatter.bewohner.miete <- function(Daten) {
     guides(alpha=FALSE)
 }
 
+#' Scatterplot Miete pro Quadratmeter nach Bewohnerzahl
+#'
+#' @param Daten 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 scatter.bewohner.mieteqm <- function(Daten) {
   lm.mieteqm.bewohner <- lm(miete.proqm ~ bewohner, data = Daten)
   ggplot(Daten) +
@@ -23,6 +47,14 @@ scatter.bewohner.mieteqm <- function(Daten) {
     guides(alpha=FALSE)  
 }
 
+#' Scatterplot Miete pro Quadratmeter nch Geschlecht
+#'
+#' @param Daten 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 scatter.geschl.mieteqm <- function(Daten) {
   lm.mieteqm.geschl <- lm(miete.proqm ~ geschl.verh, data = Daten)
   ggplot(Daten) +
@@ -33,7 +65,15 @@ scatter.geschl.mieteqm <- function(Daten) {
 
 
 # ==== Nach Stadtteil ====
-# Anzahl Wohnungen nach Stadtteil
+#' Anzahl Wohnungen nach Stadtteil
+#'
+#' @param Daten 
+#' @param ordered 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 hist.count.by.stadtteil <- function(Daten, ordered = F) {
   Daten.by.stadtteil <- data.by.stadtteil(Daten) # aus data.R
   if (ordered) {
@@ -44,7 +84,15 @@ hist.count.by.stadtteil <- function(Daten, ordered = F) {
   p
 }
 
-# Preis pro qm nach Stadtteil
+#' Preis pro qm nach Stadtteil
+#'
+#' @param Daten 
+#' @param ordered 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 hist.mieteproqm.by.stadtteil <- function(Daten, ordered = F) {
   Daten.by.stadtteil <- data.by.stadtteil(Daten)
   if (ordered) {
@@ -55,7 +103,15 @@ hist.mieteproqm.by.stadtteil <- function(Daten, ordered = F) {
   p
 }
 
-# WG-Größe pro qm nach Stadtteil
+#' WG-Größe pro qm nach Stadtteil
+#'
+#' @param Daten 
+#' @param ordered 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 hist.bewohner.by.stadtteil <- function(Daten, ordered = F) {
   Daten.by.stadtteil <- data.by.stadtteil(Daten)
   if (ordered) {
@@ -66,7 +122,15 @@ hist.bewohner.by.stadtteil <- function(Daten, ordered = F) {
   p
 }
 
-# Geschlechterverhältnisse nach Stadtteil
+#' Geschlechterverhältnisse nach Stadtteil
+#'
+#' @param Daten 
+#' @param ordered 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 hist.geschl.by.stadtteil <- function(Daten, ordered = F) {
   Daten.by.stadtteil <- data.by.stadtteil(Daten)
   if (ordered) {
@@ -90,6 +154,14 @@ pie_chart_theme <- theme_minimal() +
     axis.text.x=element_blank()
   )
 
+#' Piechart zu Geschlechtsverteilung vorhandener Bewohner
+#'
+#' @param Daten 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 pie.bewohner <- function(Daten) {
   Verteilung <- data.frame(
     gender = c("Männlich", "Weiblich"),
@@ -104,6 +176,14 @@ pie.bewohner <- function(Daten) {
     pie_chart_theme
 }
 
+#' Piechart zur gesuchten Geschlechtsverteilung
+#'
+#' @param Daten 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 pie.bewohner.ges <- function(Daten) {
   Verteilung.ges <- data.frame(
     gender = c("Egal", "Männlich", "Weiblich"),
