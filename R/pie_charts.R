@@ -13,7 +13,7 @@ pie_chart_theme <- theme_minimal() +
 
 #' Piechart zu Geschlechtsverteilung vorhandener Bewohner
 #'
-#' @param Daten 
+#' @param Daten WG-Gesucht Datensatz für eine Stadt
 #'
 #' @return
 #' @export
@@ -35,7 +35,7 @@ pie.bewohner <- function(Daten) {
 
 #' Piechart zur gesuchten Geschlechtsverteilung
 #'
-#' @param Daten 
+#' @param Daten WG-Gesucht Datensatz für eine Stadt
 #'
 #' @return
 #' @export

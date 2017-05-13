@@ -2,7 +2,7 @@
 
 #' Scatterplot Miete nach Größe
 #'
-#' @param Daten 
+#' @param Daten WG-Gesucht Datensatz für eine Stadt
 #'
 #' @return
 #' @export
@@ -18,7 +18,7 @@ scatter.groesse.miete <- function(Daten) {
 
 #' Scatterplot Miete nach Bewohnerzahl
 #'
-#' @param Daten 
+#' @param Daten WG-Gesucht Datensatz für eine Stadt
 #'
 #' @return
 #' @export
@@ -34,7 +34,7 @@ scatter.bewohner.miete <- function(Daten) {
 
 #' Scatterplot Miete pro Quadratmeter nach Bewohnerzahl
 #'
-#' @param Daten 
+#' @param Daten WG-Gesucht Datensatz für eine Stadt
 #'
 #' @return
 #' @export
@@ -45,12 +45,12 @@ scatter.bewohner.mieteqm <- function(Daten) {
   ggplot(Daten) +
     geom_point(aes(x = bewohner, y = miete.proqm, alpha = .5)) +
     geom_abline(intercept = lm.mieteqm.bewohner$coefficients[1], slope = lm.mieteqm.bewohner$coefficients[2], colour="#E41A1C") +
-    guides(alpha=FALSE)  
+    guides(alpha=FALSE)
 }
 
 #' Scatterplot Miete pro Quadratmeter nch Geschlecht
 #'
-#' @param Daten 
+#' @param Daten WG-Gesucht Datensatz für eine Stadt
 #'
 #' @return
 #' @export
@@ -61,11 +61,11 @@ scatter.geschl.mieteqm <- function(Daten) {
   ggplot(Daten) +
     geom_point(aes(x = geschl.verh, y = miete.proqm, alpha = .5)) +
     geom_abline(intercept = lm.mieteqm.geschl$coefficients[1], slope = lm.mieteqm.geschl$coefficients[2], colour="#E41A1C") +
-    guides(alpha=FALSE)  
+    guides(alpha=FALSE)
 }
 
 scatterMieteGroeße <- function(Daten,user_Punkt){
   ggplot(data = Daten) +
   geom_point(aes(groesse, miete, alpha = 0.5)) + guides(alpha = FALSE) +
-  geom_point(data = user_Punkt, aes(groesse, miete), color = "red", size = 5) 
+  geom_point(data = user_Punkt, aes(groesse, miete), color = "red", size = 5)
 }

@@ -1,10 +1,10 @@
 # ==== Histogramme ====
- 
+
 # ==== Nach Stadtteil ====
 #' Anzahl Wohnungen nach Stadtteil
 #'
-#' @param Daten 
-#' @param ordered 
+#' @param Daten WG-Gesucht Datensatz für eine Stadt
+#' @param ordered
 #'
 #' @return
 #' @export
@@ -22,8 +22,8 @@ hist.count.by.stadtteil <- function(Daten, ordered = F) {
 
 #' Preis pro qm nach Stadtteil
 #'
-#' @param Daten 
-#' @param ordered 
+#' @param Daten WG-Gesucht Datensatz für eine Stadt
+#' @param ordered
 #'
 #' @return
 #' @export
@@ -41,8 +41,8 @@ hist.mieteproqm.by.stadtteil <- function(Daten, ordered = F) {
 
 #' WG-Größe pro qm nach Stadtteil
 #'
-#' @param Daten 
-#' @param ordered 
+#' @param Daten WG-Gesucht Datensatz für eine Stadt
+#' @param ordered
 #'
 #' @return
 #' @export
@@ -60,8 +60,8 @@ hist.bewohner.by.stadtteil <- function(Daten, ordered = F) {
 
 #' Geschlechterverhältnisse nach Stadtteil
 #'
-#' @param Daten 
-#' @param ordered 
+#' @param Daten WG-Gesucht Datensatz für eine Stadt
+#' @param ordered
 #'
 #' @return
 #' @export
@@ -83,21 +83,21 @@ histMieteQM <- function(Daten, QMPreis){
   ggplot(Daten,aes(miete.proqm)) +
     geom_histogram(breaks = seq(0, 50, by = 1),
                    fill = "black") +
-    geom_vline(aes(xintercept = QMPreis + 0.5), color = "red") 
+    geom_vline(aes(xintercept = QMPreis + 0.5), color = "red")
 }
 
 histMiete <- function(Daten, TotPreis){
   ggplot(Daten,aes(miete)) +
   geom_histogram(breaks = seq(100, 600, by = 10),
                  fill = "black") +
-  geom_vline(aes(xintercept = TotPreis + 5), color = "red") 
+  geom_vline(aes(xintercept = TotPreis + 5), color = "red")
 }
 
 histQM <- function(Daten, TotQM){
   ggplot(Daten,aes(groesse)) +
   geom_histogram(breaks = seq(5, 40, by = 1),
                  fill = "black") +
-  geom_vline(aes(xintercept = TotQM + 0.5), color = "red") 
+  geom_vline(aes(xintercept = TotQM + 0.5), color = "red")
 }
 
 # Vergleich
@@ -107,6 +107,5 @@ histVergleich <- function(Daten, Daten.vergleich){
     geom_vline(aes(xintercept = (round(mean(Daten$miete.proqm),digits = 0) +.5) + 1), color = "blue") +
     geom_histogram(aes(Daten.vergleich$miete.proqm), binwidth = .5, position = "dodge", alpha = .5, breaks = seq(0,50, by = 1), fill = "red") +
     geom_vline(aes(xintercept = (round(mean(Daten.vergleich$miete.proqm), digits = 0)+ .5) + 1), color = "red") +
-    theme_gray() 
+    theme_gray()
 }
-  
