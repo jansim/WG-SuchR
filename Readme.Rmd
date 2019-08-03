@@ -37,3 +37,6 @@ In diesem Abschnitt lässt sich die ausgewählte Stadt mit einer weiteren Stadt 
 
 ### Download
 Hier kann man den aktuellen Datensatz anschauen und herunterladen.
+
+## Start der Shiny App
+Um die Shiny App zu starten, bitte zuerst dieses repository klonen und dann in R als working directory setzen (wenn man den Ordner in RStudio öffnet geschieht das automatisch). Danach einfach die benötigten Packages aus der `DESCRIPTION` laden (das sind `shiny, shinydashboard, rvest, jsonlite, tidyverse, ggplot2`) und über `runApp('inst/app')` die App starten.
