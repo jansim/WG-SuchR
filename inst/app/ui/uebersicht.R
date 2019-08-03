@@ -1,5 +1,4 @@
 uebersicht <- tabItem(tabName = "uebersicht", 
-  textOutput("test"),
   fluidRow(
     box(title = "Verteilung", status = "primary", width = 12, collapsible = T,
       splitLayout(cellWidths = c("50%", "50%"),
@@ -11,8 +10,7 @@ uebersicht <- tabItem(tabName = "uebersicht",
       tabPanel("Anzahl", plotOutput("ueb_hist_count.bystadtteil")),
       tabPanel("Bewohner", plotOutput("ueb_hist_bewohner.bystadtteil")),
       tabPanel("Miete/m²", plotOutput("ueb_hist_mieteproqm.bystadtteil")),
-      tabPanel("Geschlecht", plotOutput("ueb_hist_geschlverh.bystadtteil")),
-      "Test"
+      tabPanel("Geschlecht", plotOutput("ueb_hist_geschlverh.bystadtteil"))
     ),
     valueBoxOutput("ueb_vbox_count", width = 3),
     valueBoxOutput("ueb_vbox_active", width = 3),
