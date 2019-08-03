@@ -11,7 +11,7 @@ Stadt, welche am Anfang zusammen mit der Stichprobengröße ausgewählt
 wird. Die App gliedert sich in 4 Kategorien: Übersicht, Meine Wohnung,
 Vergleich und Download.
 
-### Übersicht
+### Übersicht 🔭
 
 ![Screenshot des Bereichs Übersicht](screenshots/meine-wohnung.png)
 
@@ -24,7 +24,7 @@ angezeigt werden. Außerdem wird in zwei Kreisdiagrammen das
 durchschnittliche Geschlechterverhältnis innerhalb der WGs und an
 gesuchten Mitbewohnern gezeigt.
 
-### Meine Wohnung
+### Meine Wohnung 🏡
 
 ![Screenshot des Bereichs Wohnung](screenshots/uebersicht.png)
 
@@ -34,7 +34,7 @@ der WGs innerhalb der Stadt setzen lassen. Außerdem wird mit Hilfe der
 Standardabweichung der eigene Quadratmeterpreis als unter-, über- oder
 durchschnittlich eingestuft.
 
-### Vergleich
+### Vergleich 📈
 
 ![Screenshot des Bereichs Vergleich](screenshots/vergleich.png)
 
@@ -42,11 +42,11 @@ In diesem Abschnitt lässt sich die ausgewählte Stadt mit einer weiteren
 Stadt in Bezug auf die Verteilung des Preises pro m² vergleichen und es
 werden die jeweiligen Durchschnittspreise angezeigt.
 
-### Download
+### Download 📋
 
 Hier kann man den aktuellen Datensatz anschauen und herunterladen.
 
-## Start der Shiny App
+## Start der Shiny App 🚀
 
 Um die Shiny App zu starten, bitte zuerst dieses repository klonen und
 dann in R als working directory setzen (wenn man den Ordner in RStudio
