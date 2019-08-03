@@ -4,3 +4,5 @@
 .Ruserdata
 inst/private/
 .DS_Store
+
+.vscode/
