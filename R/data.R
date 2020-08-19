@@ -31,7 +31,7 @@ cities.to.list <- function(cities) {
 }
 
 fetch.cities.letter <- function(q) {
-  fromJSON(paste0("http://www.wg-gesucht.de/ajax/api/Smp/api.php?action=city-list&language=de&query=", q))
+  fromJSON(paste0("https://www.wg-gesucht.de/ajax/getCities.php?country_parameter=&query=", q))
 }
 
 load.cities <- function(forceUpdate = F) {
