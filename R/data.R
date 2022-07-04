@@ -193,8 +193,8 @@ data.process <- function(data) {
 
   # Geschlechtsverhältnis berechnen
   data$geschl.verh <- data$m / (data$m + data$w)
-  if (nrow(data) > 0) data[is.nan(data$geschl.verh),]$geschl.verh <- NA # replace all NaN with NA
-  
+  if (nrow(data) > 0 && sum(is.nan(data$geschl.verh)) > 0) data[is.nan(data$geschl.verh),]$geschl.verh <- NA # replace all NaN with NA
+
   # Miete pro m^2 berechnen
   data$miete.proqm <- round(data$miete / data$groesse, digits = 2)
   data
