@@ -51,6 +51,20 @@ Hier kann man den aktuellen Datensatz anschauen und herunterladen.
 Um die Shiny App zu starten, bitte zuerst dieses repository klonen und
 dann in R als working directory setzen (wenn man den Ordner in RStudio
 öffnet geschieht das automatisch). Danach einfach die benötigten
-Packages aus der `DESCRIPTION` laden (das sind `shiny, shinydashboard,
-rvest, jsonlite, tidyverse, ggplot2`) und über `runApp('inst/app')` die
-App starten.
+Packages aus der `DESCRIPTION` laden (das sind
+`shiny, shinydashboard, rvest, jsonlite, tidyverse, ggplot2`) und über
+`runApp('inst/app')` die App starten.
+
+``` r
+# Load libraries
+library(tidyverse)
+library(shiny)
+library(shinydashboard)
+library(rvest)
+library(jsonlite)
+library(tidyverse)
+library(ggplot2)
+
+# Run the shiny app
+runApp('inst/app')
+```
