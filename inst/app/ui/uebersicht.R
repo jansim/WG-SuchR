@@ -1,9 +1,9 @@
-uebersicht <- tabItem(tabName = "uebersicht", 
+uebersicht <- tabItem(tabName = "uebersicht",
   fluidRow(
     box(title = "Verteilung", status = "primary", width = 12, collapsible = T,
       splitLayout(cellWidths = c("50%", "50%"),
         plotOutput("ueb_scatter_groesse.miete", height = 210),
-        plotOutput("ueb_scatter_bewohner.mieteproqm", height = 210)       
+        plotOutput("ueb_scatter_bewohner.mieteproqm", height = 210)
       )
     ),
     tabBox(title = tagList(shiny::icon("bar-chart"), "nach Stadtteilen"), width = 9,
@@ -22,6 +22,6 @@ uebersicht <- tabItem(tabName = "uebersicht",
         plotOutput("ueb_pie", height = 200),
         plotOutput("ueb_pie_gesucht", height = 200)
       )
-    ) 
+    )
   )
 )

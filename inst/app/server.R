@@ -76,7 +76,7 @@ shinyServer(function(input, output){
     boxSymbol <- "hand-o-left"
     if (user_qmPreis > mw + stabw) {
       # zu teuer
-      boxColor <- "red" 
+      boxColor <- "red"
       boxSymbol <- "thumbs-o-down"
     } else if (user_qmPreis < mw - stabw) {
       # zu billig
@@ -84,7 +84,7 @@ shinyServer(function(input, output){
       boxSymbol <- "thumbs-o-up"
     }
     valueBox(paste0(user_qmPreis, "€"), "pro Quadratmeter",icon = shiny::icon(boxSymbol), color = boxColor)
-  })  
+  })
   output$mW_Hist <- renderPlot({
     histMieteQM(wg()$Daten, ber_qmpreis(input)) +
       labs(title=stadt()$city_and_state) +
